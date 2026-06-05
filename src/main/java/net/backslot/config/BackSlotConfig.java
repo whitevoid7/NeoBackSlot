@@ -1,45 +1,31 @@
 package net.backslot.config;
 
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
-@Config(name = "backslot")
-@Config.Gui.Background("minecraft:textures/block/stone.png")
-public class BackSlotConfig implements ConfigData {
-    public boolean backslotSounds = true;
-    @ConfigEntry.Gui.RequiresRestart
-    @Comment("Use for mod compatibility")
-    public boolean changeSlotArrangement = false;
-    public boolean disableBackslotHud = false;
-    public boolean switchBeltslotSide = false;
-    public boolean offhandSwitch = false;
-    @Comment("Only usable when BackSlotAddon installed")
-    public boolean offhandShield = true;
-    public boolean offhandFallback = true;
-    public boolean putAside = true;
-    public boolean dropHolding = true;
-    @ConfigEntry.Category("advanced_settings")
-    @ConfigEntry.Gui.RequiresRestart
-    @ConfigEntry.Gui.PrefixText
-    public int backSlotX = 0;
-    @ConfigEntry.Category("advanced_settings")
-    @ConfigEntry.Gui.RequiresRestart
-    @Comment("Example: -18 on Y to move up one slot")
-    public int backSlotY = 0;
-    @ConfigEntry.Category("advanced_settings")
-    @ConfigEntry.Gui.RequiresRestart
-    public int beltSlotX = 0;
-    @ConfigEntry.Category("advanced_settings")
-    @ConfigEntry.Gui.RequiresRestart
-    public int beltSlotY = 0;
-    @ConfigEntry.Category("advanced_settings")
-    public int hudSlotX = 0;
-    @ConfigEntry.Category("advanced_settings")
-    public int hudSlotY = 0;
-    @ConfigEntry.Category("advanced_settings")
-    public float backslotScaling = 1.0F;
-    @ConfigEntry.Category("advanced_settings")
-    public float beltslotScaling = 1.0F;
+public class BackSlotConfig {
+
+    public static final ModConfigSpec SPEC;
+
+    public static final ModConfigSpec.BooleanValue KEEP_ITEMS_ON_DEATH;
+
+    static {
+        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
+
+        builder.push("death");
+
+        KEEP_ITEMS_ON_DEATH = builder
+                .comment(
+                        "Keep Back Slot and Belt Slot items after death.",
+                        "Default: false",
+                        "When false, items will be dropped normally on death.",
+                        "Compatible grave mods such as YIGD may store these items inside graves.",
+                        "Warning: If you die and cannot recover your dropped items or grave, the items may be permanently lost.",
+                        "When true, items will remain equipped after respawn."
+                )
+                .define("keepItemsOnDeath", false);
+
+        builder.pop();
+
+        SPEC = builder.build();
+    }
 }

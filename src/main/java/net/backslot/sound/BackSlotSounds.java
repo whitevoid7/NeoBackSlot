@@ -1,20 +1,41 @@
 package net.backslot.sound;
 
 import net.backslot.BackSlotMain;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class BackSlotSounds {
-    public static final Identifier PACK_UP_ITEM = BackSlotMain.identifierOf("pack_up_item");
-    public static SoundEvent PACK_UP_ITEM_EVENT = SoundEvent.of(PACK_UP_ITEM);
-    public static final Identifier SHEATH_SWORD = BackSlotMain.identifierOf("sheath_sword");
-    public static SoundEvent SHEATH_SWORD_EVENT = SoundEvent.of(SHEATH_SWORD);
 
-    public static void init() {
-        Registry.register(Registries.SOUND_EVENT, PACK_UP_ITEM, PACK_UP_ITEM_EVENT);
-        Registry.register(Registries.SOUND_EVENT, SHEATH_SWORD, SHEATH_SWORD_EVENT);
+    public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
+            DeferredRegister.create(Registries.SOUND_EVENT, BackSlotMain.MOD_ID);
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> PACK_UP_ITEM =
+            SOUND_EVENTS.register(
+                    "pack_up_item",
+                    () -> SoundEvent.createVariableRangeEvent(
+                            ResourceLocation.fromNamespaceAndPath(
+                                    BackSlotMain.MOD_ID,
+                                    "pack_up_item"
+                            )
+                    )
+            );
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> SHEATH_SWORD =
+            SOUND_EVENTS.register(
+                    "sheath_sword",
+                    () -> SoundEvent.createVariableRangeEvent(
+                            ResourceLocation.fromNamespaceAndPath(
+                                    BackSlotMain.MOD_ID,
+                                    "sheath_sword"
+                            )
+                    )
+            );
+
+    public static void register(IEventBus bus) {
+        SOUND_EVENTS.register(bus);
     }
-
 }

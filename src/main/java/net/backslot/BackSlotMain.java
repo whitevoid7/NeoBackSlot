@@ -1,37 +1,90 @@
 package net.backslot;
 
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
-import net.backslot.config.BackSlotConfig;
-import net.backslot.network.BackSlotServerPacket;
+import net.backslot.attachment.BackSlotAttachments;
+import net.backslot.command.BackSlotCommands;
+import net.backslot.inventory.BackSlotInventoryHelper;
+import net.backslot.network.BackSlotNetworking;
 import net.backslot.sound.BackSlotSounds;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.backslot.data.BackSlotData;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
+import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.backslot.config.BackSlotConfig;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.ModContainer;
 
-public class BackSlotMain implements ModInitializer {
+@Mod(BackSlotMain.MOD_ID)
+public class BackSlotMain {
+    public static final String MOD_ID = "neobackslot";
 
-    public static BackSlotConfig CONFIG = new BackSlotConfig();
+    public BackSlotMain(IEventBus eventBus, ModContainer modContainer) {
+        BackSlotAttachments.register(eventBus);
+        BackSlotSounds.register(eventBus);
+        modContainer.registerConfig(ModConfig.Type.COMMON, BackSlotConfig.SPEC);
+        eventBus.register(BackSlotNetworking.class);
 
-    public static final TagKey<Item> BACKSLOT_ITEMS = TagKey.of(RegistryKeys.ITEM, identifierOf("backslot_items"));
-    public static final TagKey<Item> BELTSLOT_ITEMS = TagKey.of(RegistryKeys.ITEM, identifierOf("beltslot_items"));
+        NeoForge.EVENT_BUS.register(this);
 
-    public static final boolean isMedievalWeaponsLoaded = FabricLoader.getInstance().isModLoaded("medievalweapons");
-    public static final boolean isMcdwLoaded = FabricLoader.getInstance().isModLoaded("mcdw");
-
-    @Override
-    public void onInitialize() {
-        AutoConfig.register(BackSlotConfig.class, JanksonConfigSerializer::new);
-        CONFIG = AutoConfig.getConfigHolder(BackSlotConfig.class).getConfig();
-        BackSlotSounds.init();
-        BackSlotServerPacket.init();
+        System.out.println("NeoBackSlot loaded.");
     }
 
-    public static Identifier identifierOf(String name) {
-        return Identifier.of("backslot", name);
+    @SubscribeEvent
+    public void onRegisterCommands(RegisterCommandsEvent event) {
+        BackSlotCommands.register(event.getDispatcher());
     }
 
+    @SubscribeEvent
+    public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        BackSlotInventoryHelper.sync(event.getEntity());
+    }
+
+    @SubscribeEvent
+    public void onLivingDrops(LivingDropsEvent event) {
+        if (!(event.getEntity() instanceof Player player)) {
+            return;
+        }
+
+        BackSlotData data = player.getData(BackSlotAttachments.BACK_SLOT_DATA.get());
+
+        boolean keepInventory = player.level()
+                .getGameRules()
+                .getBoolean(GameRules.RULE_KEEPINVENTORY);
+
+        if (keepInventory || BackSlotConfig.KEEP_ITEMS_ON_DEATH.get()) {
+            BackSlotInventoryHelper.sync(player);
+            return;
+        }
+
+        addDrop(event, player, data.getBackSlot());
+        addDrop(event, player, data.getBeltSlot());
+
+        data.setBackSlot(ItemStack.EMPTY);
+        data.setBeltSlot(ItemStack.EMPTY);
+
+        BackSlotInventoryHelper.sync(player);
+    }
+
+    private void addDrop(LivingDropsEvent event, Player player, ItemStack stack) {
+        if (stack.isEmpty()) {
+            return;
+        }
+
+        ItemEntity itemEntity = new ItemEntity(
+                player.level(),
+                player.getX(),
+                player.getY(),
+                player.getZ(),
+                stack.copy()
+        );
+
+        event.getDrops().add(itemEntity);
+    }
 }
