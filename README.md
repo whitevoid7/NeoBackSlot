@@ -1,36 +1,94 @@
-# BackSlot
-BackSlot adds extra slots which are easily accessible for storing your sword on your back.
+# NeoBackSlot
 
-### Installation
-BackSlot is a mod built for the [Fabric Loader](https://fabricmc.net/). It requires [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) and [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config) to be installed separately; all other dependencies are installed with the mod.
+NeoBackSlot is a lightweight Back Slot and Belt Slot equipment mod for NeoForge 1.21.1.
 
-### License
-BackSlot is licensed under GLPv3.
+Store weapons and tools on your character's back or belt for quick access. Items are fully synchronized in multiplayer and visible to other players.
 
-### Datapacks
-Add items which can be worn on the back or belt via a datapack. There are two backslot item tags given called `backslot_items` and `beltslot_items`. To adjust the position and size of the rendered items, a resource pack is needed. BackSlot uses the head renderer which can be set or configured in the models folder and looks like this:
+## Features
 
-```json
-"head": {
-			"rotation": [ 0, 0, 270 ],
-			"translation": [ 0, 3.5, 0.05],
-			"scale":[ 1.05, 1.05, 1.0 ]
-		}
+* Back Slot
+* Belt Slot
+* Quick weapon swapping with keybinds
+* Multiplayer synchronization
+* Dedicated server support
+* HUD indicators
+* Inventory GUI integration
+* Custom equip and unequip sounds
+* Death drop support
+* Basic grave mod compatibility (YIGD tested)
+* Config support
+* Lightweight and dependency-free
+
+## Installation
+
+Install NeoBackSlot on both the server and all clients.
+
+Requirements:
+
+* NeoForge 1.21.1
+
+No additional dependencies are required.
+
+## Controls
+
+| Key | Action         |
+| --- | -------------- |
+| G   | Swap Back Slot |
+| V   | Swap Belt Slot |
+
+## Configuration
+
+A configuration file will be generated automatically:
+
+```txt
+config/neobackslot-common.toml
 ```
 
-A full example can be found below:
-```json
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "minecraft:item/iron_sword"
-    },
-    "display": {
-        "head": {
-			"rotation": [ 0, 0, 270 ],
-			"translation": [ 0, 3.5, 0.05],
-			"scale":[ 1.05, 1.05, 1.0 ]
-		}
-    }
-}
+Available options:
+
+```toml
+[death]
+keepItemsOnDeath = false
 ```
+
+When enabled, Back Slot and Belt Slot items will remain equipped after respawn.
+
+## Multiplayer
+
+NeoBackSlot supports:
+
+* Dedicated servers
+* Multiplayer synchronization
+* Player-to-player rendering
+* Shared equip and unequip sounds
+
+Both server and client must have the mod installed.
+
+## Compatibility
+
+Tested with:
+
+* NeoForge 1.21.1
+* Dedicated Server
+* 300+ mod environment
+* YIGD
+
+## Known Issues
+
+* Modded shields may require additional transform adjustments.
+* Grave restoration behavior may vary between grave mods.
+* Back Slot and Belt Slot items may be lost when claiming a grave with a completely full inventory.
+
+## Credits
+
+Original BackSlot:
+- Globox1997
+
+NeoBackSlot:
+- whitevoid7
+
+## License
+
+NeoBackSlot is licensed under the GNU General Public License v3.0 (GPLv3).
+
+This project is heavily inspired by and derived from the original BackSlot mod by Globox1997.

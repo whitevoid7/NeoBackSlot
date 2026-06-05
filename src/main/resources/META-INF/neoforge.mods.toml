@@ -42,10 +42,12 @@ displayName="${mod_name}" #mandatory
 #credits="" #optional
 
 # The authors of the mod, displayed in the mod UI (optional)
-authors="Globox1997, whitevoid7"
+authors="whitevoid7"
 
 # The description text for the mod (multi line!) (#mandatory)
-description='''NeoForge port of BackSlot for Minecraft 1.21.1.'''
+description='''
+A lightweight Back Slot and Belt Slot equipment mod for NeoForge 1.21.1.
+'''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
 #[[mixins]]
