@@ -1,5 +1,14 @@
 # NeoBackSlot
 
+[![Modrinth](https://img.shields.io/badge/Download-Modrinth-00AF5C?logo=modrinth&logoColor=white)](https://modrinth.com/mod/neobackslot)
+[![Report Issues](https://img.shields.io/badge/Issues-GitHub-red?logo=github)](https://github.com/whitevoid7/NeoBackSlot/issues)
+
+**📦 Download the latest release on Modrinth:** 
+https://modrinth.com/mod/neobackslot  
+
+**🐞 Report bugs or compatibility issues:** 
+https://github.com/whitevoid7/NeoBackSlot/issues
+
 NeoBackSlot is a lightweight Back Slot and Belt Slot equipment mod for NeoForge 1.21.1.
 
 Store weapons and tools on your character's back or belt for quick access. Items are fully synchronized in multiplayer and visible to other players.
