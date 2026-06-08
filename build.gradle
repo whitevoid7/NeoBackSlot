@@ -13,7 +13,7 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
-version = "0.9.0-alpha"
+version = project.mod_version
 group = mod_group_id
 
 sourceSets.main.resources {

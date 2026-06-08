@@ -3,6 +3,9 @@ package net.backslot.util;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.MaceItem;
 import net.minecraft.world.item.ShieldItem;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.HoeItem;
 
 public class WeaponUtil {
 
@@ -26,6 +29,9 @@ public class WeaponUtil {
 
         return item instanceof SwordItem
                 || item instanceof AxeItem
+                || item instanceof PickaxeItem
+                || item instanceof ShovelItem
+                || item instanceof HoeItem
                 || item instanceof MaceItem
                 || item instanceof TridentItem;
     }

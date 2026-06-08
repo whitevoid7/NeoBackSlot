@@ -71,7 +71,7 @@ public class BackSlotInventoryHelper {
         ItemStack belt = data.getBeltSlot();
 
         if (belt.isEmpty()) {
-            if (!hand.isEmpty() && !WeaponUtil.isValidBackSlot(hand)) {
+            if (!hand.isEmpty() && !WeaponUtil.isValidBeltSlot(hand)) {
                 return;
             }
 
