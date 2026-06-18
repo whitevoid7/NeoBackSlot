@@ -51,6 +51,12 @@ Files:
 
 If ModMenu is installed, NeoBackSlot provides a config screen for common UI options.
 
+## Credits
+
+NeoBackSlot is a standalone implementation and is not a direct port of BackSlot.
+
+This project was originally inspired by the BackSlot mod created by Globox1997, especially the idea of dedicated back and belt equipment slots.
+
 ## License
 
 NeoBackSlot is licensed under the GNU General Public License v3.0 (GPLv3).

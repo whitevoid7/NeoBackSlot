@@ -104,9 +104,9 @@ Tested with:
 
 ## Credits
 
-NeoBackSlot:
+NeoBackSlot is a standalone implementation and is not a direct port of BackSlot.
 
-* Don Franco
+This project was originally inspired by the BackSlot mod created by Globox1997, especially the idea of dedicated back and belt equipment slots.
 
 ## License
 
