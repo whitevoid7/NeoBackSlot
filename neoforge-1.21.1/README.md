@@ -36,30 +36,19 @@ Install NeoBackSlot on both the server and all clients.
 Supported loaders:
 
 * NeoForge 1.21.1
-* Fabric 1.21.1
 * Fabric 1.20.1
-* Forge 1.20.1 (port in progress)
-
-## Project Structure
-
-Each loader/version target is kept as its own Gradle project:
-
-```txt
-fabric-1.20.1/
-fabric-1.21.1/
-forge-1.20.1/
-neoforge-1.21.1/
-```
-
-Build-ready targets:
-
-* `fabric-1.20.1`
-* `fabric-1.21.1`
-* `neoforge-1.21.1`
-
-`forge-1.20.1` is a legacy Forge port target and still needs its Forge capability/network adapter work.
 
 ## Default Controls
+
+NeoForge:
+
+| Key | Action         |
+| --- | -------------- |
+| G   | Swap Back Slot |
+| V   | Swap Belt Slot |
+| N   | Open Editor    |
+
+Fabric:
 
 | Key | Action         |
 | --- | -------------- |

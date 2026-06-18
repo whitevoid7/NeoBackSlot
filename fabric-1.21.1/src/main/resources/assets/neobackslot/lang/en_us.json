@@ -1,0 +1,9 @@
+{
+  "key.categories.neobackslot": "NeoBackSlot",
+  "key.neobackslot.swap_back_slot": "Swap Back Slot",
+  "key.neobackslot.swap_belt_slot": "Swap Belt Slot",
+  "key.neobackslot.open_editor": "Open NeoBackSlot Editor",
+
+  "tooltip.neobackslot.back_slot": "Back Slot",
+  "tooltip.neobackslot.belt_slot": "Belt Slot"
+}

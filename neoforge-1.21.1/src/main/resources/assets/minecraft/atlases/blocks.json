@@ -1,0 +1,12 @@
+{
+    "sources": [
+        {
+            "type": "single",
+            "resource": "neobackslot:gui/empty_back_slot"
+        },
+        {
+            "type": "single",
+            "resource": "neobackslot:gui/empty_belt_slot"
+        }
+    ]
+}
