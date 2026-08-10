@@ -219,6 +219,15 @@ public class BackSlotInventoryHelper {
         sync(player, data);
     }
 
+    public static void syncTo(ServerPlayer viewer, ServerPlayer owner) {
+        BackSlotData data = owner.getData(BackSlotAttachments.BACK_SLOT_DATA.get());
+        PacketDistributor.sendToPlayer(viewer, new SyncBackSlotPayload(
+                owner.getUUID(),
+                data.getBackSlot(),
+                data.getBeltSlot()
+        ));
+    }
+
     private static void sync(Player player, BackSlotData data) {
         if (player instanceof ServerPlayer serverPlayer) {
             SyncBackSlotPayload payload = new SyncBackSlotPayload(

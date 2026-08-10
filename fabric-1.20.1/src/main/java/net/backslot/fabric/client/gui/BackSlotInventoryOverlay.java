@@ -2,6 +2,7 @@ package net.backslot.fabric.client.gui;
 
 import net.backslot.fabric.client.data.ClientBackSlotData;
 import net.backslot.fabric.config.BackSlotClientConfig;
+import net.backslot.fabric.mixin.AbstractContainerScreenAccessor;
 import net.backslot.fabric.network.BackSlotPackets;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -26,9 +27,6 @@ public final class BackSlotInventoryOverlay {
     private BackSlotInventoryOverlay() {
     }
 
-    private static final int INVENTORY_WIDTH = 176;
-    private static final int INVENTORY_HEIGHT = 166;
-
     public static void render(Screen screen, GuiGraphics graphics, int mouseX, int mouseY, float tickDelta) {
         if (!(screen instanceof InventoryScreen inventoryScreen)) {
             return;
@@ -39,8 +37,9 @@ public final class BackSlotInventoryOverlay {
             return;
         }
 
-        int left = getGuiLeft(screen);
-        int top = getGuiTop(screen);
+        AbstractContainerScreenAccessor inventoryAccessor = (AbstractContainerScreenAccessor) inventoryScreen;
+        int left = inventoryAccessor.neobackslot$getGuiLeft();
+        int top = inventoryAccessor.neobackslot$getGuiTop();
         int x = left + 76 + BackSlotClientConfig.INVENTORY_SLOT_OFFSET_X.get();
         int y = top + 42 + BackSlotClientConfig.INVENTORY_SLOT_OFFSET_Y.get();
 
@@ -84,8 +83,9 @@ public final class BackSlotInventoryOverlay {
             return true;
         }
 
-        int left = getGuiLeft(screen);
-        int top = getGuiTop(screen);
+        AbstractContainerScreenAccessor inventoryAccessor = (AbstractContainerScreenAccessor) inventoryScreen;
+        int left = inventoryAccessor.neobackslot$getGuiLeft();
+        int top = inventoryAccessor.neobackslot$getGuiTop();
         int x = left + 76 + BackSlotClientConfig.INVENTORY_SLOT_OFFSET_X.get();
         int y = top + 42 + BackSlotClientConfig.INVENTORY_SLOT_OFFSET_Y.get();
 
@@ -110,11 +110,4 @@ public final class BackSlotInventoryOverlay {
         return mouseX >= x && mouseX < x + 18 && mouseY >= y && mouseY < y + 18;
     }
 
-    private static int getGuiLeft(Screen screen) {
-        return (screen.width - INVENTORY_WIDTH) / 2;
-    }
-
-    private static int getGuiTop(Screen screen) {
-        return (screen.height - INVENTORY_HEIGHT) / 2;
-    }
 }

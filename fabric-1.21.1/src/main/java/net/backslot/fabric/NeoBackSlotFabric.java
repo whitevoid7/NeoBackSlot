@@ -13,6 +13,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
@@ -58,6 +59,13 @@ public class NeoBackSlotFabric implements ModInitializer {
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) ->
                 ServerTransformSync.remove(handler.player.getUUID())
         );
+
+        EntityTrackingEvents.START_TRACKING.register((entity, viewer) -> {
+            if (entity instanceof ServerPlayer owner) {
+                BackSlotInventoryHelper.syncTo(viewer, owner);
+                ServerTransformSync.syncTo(viewer, owner.getUUID());
+            }
+        });
 
         ServerEntityEvents.ENTITY_LOAD.register((entity, world) -> {
             if (entity instanceof ServerPlayer player) {

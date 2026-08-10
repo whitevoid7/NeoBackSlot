@@ -158,6 +158,10 @@ public final class BackSlotInventoryHelper {
         }
     }
 
+    public static void syncTo(ServerPlayer viewer, ServerPlayer owner) {
+        send(viewer, owner, (BackSlotAccess) owner);
+    }
+
     private static void send(ServerPlayer viewer, ServerPlayer owner, BackSlotAccess data) {
         ServerPlayNetworking.send(viewer, new BackSlotPackets.SyncSlotPayload(
                 owner.getUUID(),

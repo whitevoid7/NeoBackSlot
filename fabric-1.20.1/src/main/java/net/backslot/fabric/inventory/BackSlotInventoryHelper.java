@@ -159,6 +159,10 @@ public final class BackSlotInventoryHelper {
         }
     }
 
+    public static void syncTo(ServerPlayer viewer, ServerPlayer owner) {
+        send(viewer, owner, (BackSlotAccess) owner);
+    }
+
     private static void send(ServerPlayer viewer, ServerPlayer owner, BackSlotAccess data) {
         FriendlyByteBuf buffer = new FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
         BackSlotPackets.writeSlotSync(buffer, owner.getUUID(), data.neobackslot$getBackSlot(), data.neobackslot$getBeltSlot());

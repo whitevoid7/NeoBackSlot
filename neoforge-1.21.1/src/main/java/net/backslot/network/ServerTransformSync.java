@@ -31,6 +31,17 @@ public final class ServerTransformSync {
         }
     }
 
+    public static void syncTo(ServerPlayer viewer, UUID ownerId) {
+        ActiveTransforms transforms = ACTIVE_TRANSFORMS.get(ownerId);
+        if (transforms != null) {
+            PacketDistributor.sendToPlayer(viewer, new SyncTransformPayload(
+                    ownerId,
+                    transforms.backTransform(),
+                    transforms.beltTransform()
+            ));
+        }
+    }
+
     public static void remove(UUID playerId) {
         ACTIVE_TRANSFORMS.remove(playerId);
     }

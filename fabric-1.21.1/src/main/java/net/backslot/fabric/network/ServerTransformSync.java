@@ -28,6 +28,13 @@ public final class ServerTransformSync {
         }
     }
 
+    public static void syncTo(ServerPlayer viewer, UUID ownerId) {
+        ActiveTransforms transforms = ACTIVE_TRANSFORMS.get(ownerId);
+        if (transforms != null) {
+            send(viewer, ownerId, transforms);
+        }
+    }
+
     public static void remove(UUID playerId) {
         ACTIVE_TRANSFORMS.remove(playerId);
     }

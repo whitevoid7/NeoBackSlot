@@ -103,8 +103,8 @@ public class BackSlotMain {
     @SubscribeEvent
     public void onPlayerStartTracking(PlayerEvent.StartTracking event) {
         if (event.getEntity() instanceof ServerPlayer viewer && event.getTarget() instanceof ServerPlayer target) {
-            BackSlotInventoryHelper.sync(target);
-            ServerTransformSync.syncKnownTransformsTo(viewer);
+            BackSlotInventoryHelper.syncTo(viewer, target);
+            ServerTransformSync.syncTo(viewer, target.getUUID());
         }
     }
 
