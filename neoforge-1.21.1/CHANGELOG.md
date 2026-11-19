@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.1]
+
+### Fixed
+
+- Fixed a dedicated server startup crash by registering the NeoForge configuration screen only on the client.
+
 ## [1.1.0] - Unreleased
 
 ### Added

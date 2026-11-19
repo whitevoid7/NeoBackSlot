@@ -1,7 +1,6 @@
 package net.backslot;
 
 import net.backslot.attachment.BackSlotAttachments;
-import net.backslot.client.config.BackSlotNeoForgeConfigScreen;
 import net.backslot.command.BackSlotCommands;
 import net.backslot.inventory.BackSlotInventoryHelper;
 import net.backslot.network.BackSlotNetworking;
@@ -24,7 +23,6 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.backslot.config.BackSlotConfig;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.backslot.config.BackSlotClientConfig;
 
 import java.io.IOException;
@@ -42,8 +40,6 @@ public class BackSlotMain {
         migrateConfigFile(MOD_ID + "-client.toml", MOD_ID + "/client.toml");
         modContainer.registerConfig(ModConfig.Type.COMMON, BackSlotConfig.SPEC, MOD_ID + "/common.toml");
         modContainer.registerConfig(ModConfig.Type.CLIENT, BackSlotClientConfig.SPEC, MOD_ID + "/client.toml");
-        modContainer.registerExtensionPoint(IConfigScreenFactory.class,
-                (IConfigScreenFactory) (container, parent) -> new BackSlotNeoForgeConfigScreen(parent));
         eventBus.register(BackSlotNetworking.class);
 
         NeoForge.EVENT_BUS.register(this);
